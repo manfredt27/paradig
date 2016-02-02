@@ -7,7 +7,7 @@ public class WebService : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-
+		// 	THIS CODE IS AN EXAMPLE OF HOW TO CONSUME WS (DO NOT ERASE by the moment)
 //		// Set url of web service (for GET example)
 //		string urlGET = "http://jsonplaceholder.typicode.com/posts/1"; // url what I found in google (json web service online for test)
 //		WWW wwwGET = new WWW (urlGET);
@@ -54,13 +54,11 @@ public class WebService : MonoBehaviour {
 		
 	public void SetMessage (string pMesssage){
 		this.message = pMesssage;
-
 	}
 
 	public void sendMessage(){
-		// Set url of web service (for POST example)
+		// Set url of web service
 		string urlPOST = "http://jsonplaceholder.typicode.com/posts"; // mejorar
-
 		// create a form and set data to send
 		WWWForm formPOST = new WWWForm ();
 		formPOST.AddField ("title", "testPost");
@@ -71,9 +69,4 @@ public class WebService : MonoBehaviour {
 		// Start coroutine to make a post to web service
 		StartCoroutine(waitForResponse(wwwPOST));
 	}
-
-
-
-
-
 }

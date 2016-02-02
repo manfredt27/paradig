@@ -15,9 +15,8 @@ public class ChatBoxFunctions : MonoBehaviour {
 	public bool isUserMessage = false;
 	private int questionId = 0;
 	AssemblyCSharp.Questions question = new AssemblyCSharp.Questions ();
+
 	void Start(){
-		
-		//AssemblyCSharp.Questions question = new AssemblyCSharp.Questions ();
 		question.createQuestion ("¿En qué año está?", "2012", "2031", "3016", "2016", "2016");
 		question.addQuestion (question);
 		AssemblyCSharp.Questions question2 = new AssemblyCSharp.Questions ();
@@ -28,10 +27,8 @@ public class ChatBoxFunctions : MonoBehaviour {
 			"Nicaragua, Panamá, la isla del Coco, el mar Caribe y el océano Pacífico",
 			"Nicaragua, Panamá, la isla del Coco, el mar Caribe y el océano Pacífico");
 		question.addQuestion (question2);
-
 		this.isUserMessage = false;
 		this.ShowMessage ();
-
 	}
 
 	public void SetMessage (string pMesssage){
@@ -58,12 +55,11 @@ public class ChatBoxFunctions : MonoBehaviour {
 			clone.transform.SetParent (messageParentPanel); // set new object to parent object
 			clone.transform.SetSiblingIndex (messageParentPanel.childCount - 2);
 			clone.GetComponent<MessageFunctions> ().ShowMessage (this.message); // set message to new object to show in GUI
-
 			if (this.isEmptyList)
 			{
 				if (isUserMessage)
 				{
-					clone.transform.localPosition = new Vector3 (270, -45, 0);		
+					clone.transform.localPosition = new Vector3 (100, 415, 0);		
 				} 
 				else
 				{

@@ -13,10 +13,6 @@ namespace AssemblyCSharp
 		public string optionD;
 		public string answer;
 
-		public Questions ()
-		{
-		}
-
 		public void createQuestion (string pQuestion, string pOptionA, string pOptionB, string pOptionC, string pOptionD, string pAnswer)
 		{
 			this.question = pQuestion;
@@ -41,7 +37,6 @@ namespace AssemblyCSharp
 		{
 			return questionsList [pId];
 		}
-			
 	}
 }
 

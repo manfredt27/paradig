@@ -9,6 +9,4 @@ public class MessageFunctions : MonoBehaviour {
 	public void ShowMessage(string pMessage){
 		text.text = pMessage;
 	}
-
-
 }
