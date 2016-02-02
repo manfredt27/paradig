@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WebService : MonoBehaviour {
 	string message;
 	// Use this for initialization
 	void Start () {
-		
+
+
 //		// Set url of web service (for GET example)
 //		string urlGET = "http://jsonplaceholder.typicode.com/posts/1"; // url what I found in google (json web service online for test)
 //		WWW wwwGET = new WWW (urlGET);
@@ -69,6 +71,9 @@ public class WebService : MonoBehaviour {
 		// Start coroutine to make a post to web service
 		StartCoroutine(waitForResponse(wwwPOST));
 	}
+
+
+
 
 
 }
