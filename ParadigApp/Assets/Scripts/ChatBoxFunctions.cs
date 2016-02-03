@@ -31,6 +31,11 @@ public class ChatBoxFunctions : MonoBehaviour {
 		this.ShowMessage ();
 	}
 
+	void Update()
+	{
+		Debug.Log (messageList[messageList.Count - 1]);
+	}
+
 	public void SetMessage (string pMesssage){
 		this.message = pMesssage;
 	}
@@ -39,7 +44,7 @@ public class ChatBoxFunctions : MonoBehaviour {
 		if (!this.isUserMessage)
 		{
 			this.SetMessage (question.getQuestion (this.questionId).question);
-			this.questionId++;
+			//this.questionId++;
 		}
 		if (this.message != "")
 		{
@@ -63,7 +68,7 @@ public class ChatBoxFunctions : MonoBehaviour {
 				} 
 				else
 				{
-					clone.transform.localPosition = new Vector3 (165, -45, 0);				
+					clone.transform.localPosition = new Vector3 (-145, 450, 0);				
 				}
 				this.isEmptyList = false;
 			}
@@ -72,12 +77,12 @@ public class ChatBoxFunctions : MonoBehaviour {
 				Vector3 vector = messageList [messageList.Count - 1].transform.localPosition;
 				if (isUserMessage)
 				{
-					clone.transform.localPosition = new Vector3 (270, vector.y - 70, 0);
+					clone.transform.localPosition = new Vector3 (240, vector.y - 90, 0);
 					this.isUserMessage = false;
 				}
 				else
 				{
-					clone.transform.localPosition = new Vector3 (165, vector.y - 70, 0);
+					clone.transform.localPosition = new Vector3 (195, vector.y - 90, 0);
 					this.isUserMessage = true;
 				}	
 			}
