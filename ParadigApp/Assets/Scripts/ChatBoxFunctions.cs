@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class ChatBoxFunctions : MonoBehaviour {
+public class ChatBoxFunctions : MonoBehaviour
+{
 
 	//WebService webService;
 	string message = "";
@@ -21,7 +22,8 @@ public class ChatBoxFunctions : MonoBehaviour {
 	private int questionId = 0;
 	AssemblyCSharp.Questions question = new AssemblyCSharp.Questions ();
 
-	void Start(){
+	void Start()
+	{
 		question.createQuestion ("¿En qué año está?", "2012", "2031", "3016", "2016", "2016");
 		question.addQuestion (question);
 		AssemblyCSharp.Questions question2 = new AssemblyCSharp.Questions ();
@@ -40,11 +42,13 @@ public class ChatBoxFunctions : MonoBehaviour {
 	{
 	}
 
-	public void SetMessage (string pMesssage){
+	public void SetMessage (string pMesssage)
+	{
 		this.message = pMesssage;
 	}
 
-	public void ShowMessage(){
+	public void ShowMessage()
+	{
 		if (!this.isUserMessage)
 		{
 			this.SetMessage (question.getQuestion (this.questionId).question);
@@ -72,11 +76,12 @@ public class ChatBoxFunctions : MonoBehaviour {
 			{
 				if (isUserMessage)
 				{
-					clone.transform.localPosition = new Vector3 (100, 415, 0);		
+					clone.transform.localPosition = new Vector3 (180, -125, 0);		
 				} 
 				else
 				{
-					clone.transform.localPosition = new Vector3 (0, 450, 0);				
+					clone.transform.localPosition = new Vector3 (0, -602, 0);	
+					isUserMessage = true;
 				}
 				this.isEmptyList = false;
 			}
@@ -85,12 +90,12 @@ public class ChatBoxFunctions : MonoBehaviour {
 				Vector3 vector = messageList [messageList.Count - 1].transform.localPosition;
 				if (isUserMessage)
 				{
-					clone.transform.localPosition = new Vector3 (180, vector.y - 90, 0);
+					clone.transform.localPosition = new Vector3 (180, vector.y + 367, 0);
 					this.isUserMessage = false;
 				}
 				else
 				{
-					clone.transform.localPosition = new Vector3 (0, vector.y - 90, 0);
+					clone.transform.localPosition = new Vector3 (0, vector.y - 547, 0);
 					this.isUserMessage = true;
 				}	
 			}

@@ -4,7 +4,8 @@ using UnityEngine.Events;
 using System.Collections;
 
 
-public class Register : MonoBehaviour {
+public class Register : MonoBehaviour 
+{
 
 	public Dropdown ddlGender;
 	string userName;
@@ -12,33 +13,40 @@ public class Register : MonoBehaviour {
 	string age;
 	string gender;
 
-	public void SetUserName(string pUserName){
+	public void SetUserName(string pUserName)
+	{
 		this.userName = pUserName; 
 	}
 
-	public void GetUserName(){
+	public void GetUserName()
+	{
 		Debug.Log (this.userName);
 	}
 
-	public void SetPassword(string pPassword){
+	public void SetPassword(string pPassword)
+	{
 		this.password = pPassword; 
 	}
 
-	public string GetPassword(){
+	public string GetPassword()
+	{
 		Debug.Log (this.password);
 		return this.password;
 	}
 
-	public void SetAge(string pAge){
+	public void SetAge(string pAge)
+	{
 		this.age = pAge; 
 	}
 
-	public string GetAge(){
+	public string GetAge()
+	{
 		Debug.Log (this.age);
 		return this.age;
 	}
 
-	public void ValidateUser(){
+	public void ValidateUser()
+	{
 		Debug.Log (this.userName);
 		Debug.Log (this.password);
 		Debug.Log (this.age);

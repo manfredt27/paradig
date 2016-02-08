@@ -2,20 +2,20 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class MessageFunctions : MonoBehaviour {
+public class MessageFunctions : MonoBehaviour 
+{
 
 	[SerializeField] GameObject FutureParentPanelPrefab; // future prefab
-	[SerializeField] GameObject UserParentPanelPrefab; // future prefab
+	[SerializeField] GameObject UserParentPanelPrefab; // user prefab
 
-	public void ShowMessage(string pMessage){
+	public void ShowMessage(string pMessage)
+	{
 		if (FutureParentPanelPrefab != null) 
 		{
-			// get text from panel
 			FutureParentPanelPrefab.transform.GetChild (0).GetComponent<Text> ().text = pMessage;
 		}
-		if (UserParentPanelPrefab) 
+		if (UserParentPanelPrefab != null) 
 		{
-			// get text from panel
 			UserParentPanelPrefab.transform.GetChild (0).GetComponent<Text> ().text = pMessage;
 		}
 

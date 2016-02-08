@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class WebService : MonoBehaviour {
+public class WebService : MonoBehaviour 
+{
 	string message;
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 
 		// 	THIS CODE IS AN EXAMPLE OF HOW TO CONSUME WS (DO NOT ERASE by the moment)
 //		// Set url of web service (for GET example)
@@ -33,7 +35,8 @@ public class WebService : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 	
 	}
 
@@ -52,11 +55,13 @@ public class WebService : MonoBehaviour {
 		}
 	}
 		
-	public void SetMessage (string pMesssage){
+	public void SetMessage (string pMesssage)
+	{
 		this.message = pMesssage;
 	}
 
-	public void sendMessage(){
+	public void sendMessage()
+	{
 		// Set url of web service
 		string urlPOST = "http://jsonplaceholder.typicode.com/posts"; // mejorar
 		// create a form and set data to send
