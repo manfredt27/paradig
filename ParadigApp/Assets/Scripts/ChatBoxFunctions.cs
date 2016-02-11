@@ -8,7 +8,7 @@ public class ChatBoxFunctions : MonoBehaviour
 
 	//WebService webService;
 	string message = "";
-	[SerializeField] Transform messageParentPanel; // scroll
+	[SerializeField] RectTransform messageParentPanel; // scroll
 
 	[SerializeField] GameObject UserParentPanelPrefab; // user prefab
 	[SerializeField] GameObject FutureParentPanelPrefab; // future prefab
@@ -70,18 +70,33 @@ public class ChatBoxFunctions : MonoBehaviour
 			this.userTime.text = System.DateTime.UtcNow.ToString ("HH:mm");
 			clone.transform.SetParent (messageParentPanel); // set new object to parent object
 			clone.transform.SetSiblingIndex (messageParentPanel.childCount - 2);
-
 			clone.GetComponent<MessageFunctions> ().ShowMessage (this.message); // set message to new object to show in GUI
+			//
 			if (this.isEmptyList)
 			{
 				if (isUserMessage)
 				{
-					clone.transform.localPosition = new Vector3 (180, -125, 0);		
+					//float contentPanelWidth = messageParentPanel.rect.width;
+					float contentPanelHeight = messageParentPanel.rect.height;
+					float clonePanelHeight = clone.transform.Find ("MessagePanel").GetComponent<RectTransform> ().rect.height;
+
+					float buffer = 27;
+
+					clone.transform.localPosition = new Vector3 (0, clonePanelHeight + buffer, 0);
+					//clone.transform.localPosition = new Vector3 (0, 0, 0);
+					clone.transform.localScale = new Vector3 (0.6899125F,0.2108072F,0.6640406F);
 				} 
 				else
 				{
-					clone.transform.localPosition = new Vector3 (0, -602, 0);	
+					clone.transform.localPosition = new Vector3 (98, -35, 0);	
 					isUserMessage = true;
+					clone.transform.localScale = new Vector3 (0.6899125F, 0.2108072F, 0.6640406F);
+					float clonePanelHeight = clone.transform.Find ("MessagePanel").GetComponent<RectTransform> ().rect.height;
+					Debug.Log (clonePanelHeight);
+					float contentPanelHeight = messageParentPanel.rect.height;
+					Debug.Log (contentPanelHeight);
+
+
 				}
 				this.isEmptyList = false;
 			}
@@ -90,12 +105,26 @@ public class ChatBoxFunctions : MonoBehaviour
 				Vector3 vector = messageList [messageList.Count - 1].transform.localPosition;
 				if (isUserMessage)
 				{
-					clone.transform.localPosition = new Vector3 (180, vector.y + 367, 0);
+					float contentPanelHeight = messageParentPanel.rect.height;
+					float clonePanelHeight = clone.transform.Find ("MessagePanel").GetComponent<RectTransform> ().rect.height;
+					messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (5000, 400); //example of how to set height of parent (content of scroll view);
+					//float buffer = -60;
+
+					clone.transform.localPosition = new Vector3 (140, vector.y + -25, 0);
+
+					clone.transform.localScale = new Vector3 (0.6899125F, 0.2108072F, 0.6640406F);
 					this.isUserMessage = false;
 				}
 				else
 				{
-					clone.transform.localPosition = new Vector3 (0, vector.y - 547, 0);
+					float contentPanelHeight = messageParentPanel.rect.height;
+					float clonePanelHeight = clone.transform.Find ("MessagePanel").GetComponent<RectTransform> ().rect.height;
+					Debug.Log (clonePanelHeight);
+					messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (5000, 400); //example of how to set height of parent (content of scroll view);
+					//float buffer = -60;
+
+					clone.transform.localPosition = new Vector3 (98, vector.y + -25, 0);
+					clone.transform.localScale = new Vector3 (0.6899125F, 0.2108072F, 0.6640406F);
 					this.isUserMessage = true;
 				}	
 			}
