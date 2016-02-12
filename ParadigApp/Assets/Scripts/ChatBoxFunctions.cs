@@ -20,26 +20,31 @@ public class ChatBoxFunctions : MonoBehaviour
 	bool isEmptyList = true;
 	bool isUserMessage = false;
 	private int questionId = 0;
-	AssemblyCSharp.Questions question = new AssemblyCSharp.Questions ();
+	List<AssemblyCSharp.Question> questionsList = new List<AssemblyCSharp.Question>();
 
 	void Start()
 	{
-		question.createQuestion ("¿En qué año está?", "2012", "2031", "3016", "2016", "2016");
-		question.addQuestion (question);
-		AssemblyCSharp.Questions question2 = new AssemblyCSharp.Questions ();
-		question2.createQuestion ("En ese año, con cuales países y cuerpos de agua colinda Costa Rica, tomando en cuenta los límites marítimos:", 
-			"Nicaragua y Panamá, océano Atlántico y el océano Pacífico", 
-			"Nicaragua, el río San Juan, el océano Atlántico y el océano Pacífico", 
-			"Nicaragua, Colombia, Ecuador y Panamá, el mar Caribe y el océano Pacífico", 
-			"Nicaragua, Panamá, la isla del Coco, el mar Caribe y el océano Pacífico",
-			"Nicaragua, Panamá, la isla del Coco, el mar Caribe y el océano Pacífico");
-		question.addQuestion (question2);
+		// here we can add questions
+		AssemblyCSharp.Question question = new AssemblyCSharp.Question("¿En qué año está:", new string[] {"1. 2012", "2. 2031", "3. 3016", "4. 2016"},3);
+		questionsList.Add (question);
+		question = new AssemblyCSharp.Question("En ese año, con cuales países y cuerpos de agua colinda Costa Rica, tomando en cuenta los límites marítimos:", 
+			new string[] {
+				"1. Nicaragua y Panamá, océano Atlántico y el océano Pacífico", 
+				"2. Nicaragua, el río San Juan, el océano Atlántico y el océano Pacífico", 
+				"3. Nicaragua, Colombia, Ecuador y Panamá, el mar Caribe y el océano Pacífico", 
+				"4. Nicaragua, Panamá, la isla del Coco, el mar Caribe y el océano Pacífico"
+			},3);
+		questionsList.Add (question);
+		question = new AssemblyCSharp.Question("La construcción del Teatro Nacional fue financiada por:", 
+			new string[] {
+				"1. El pueblo, mediante impuestos", 
+				"2. Los productores de café, con fondos privados", 
+				"3. La unión de visitantes extranjeros, cafetaleros y sembradores de caña", 
+				"4. El gobierno"
+			},3);
+		questionsList.Add (question);
 		this.isUserMessage = false;
 		this.ShowMessage ();
-	}
-
-	void Update()
-	{
 	}
 
 	public void SetMessage (string pMesssage)
@@ -47,12 +52,35 @@ public class ChatBoxFunctions : MonoBehaviour
 		this.message = pMesssage;
 	}
 
+	private AssemblyCSharp.Question getNextQuestion(){
+		if (this.questionsList.Count > 0) {
+			AssemblyCSharp.Question question = this.questionsList [0];
+			return question;
+		}
+		return new AssemblyCSharp.Question("No hay más preguntas que mostrar", new string[] {""},0);;
+	}
+
+	private bool compareAnswer(string pUserAnswer, string pCorrectAnswer)
+	{
+		return pUserAnswer == pCorrectAnswer;
+	}
+
 	public void ShowMessage()
 	{
-		if (!this.isUserMessage)
+		if (!this.isUserMessage) 
 		{
-			this.SetMessage (question.getQuestion (this.questionId).question);
-			//this.questionId++;
+			this.SetMessage (getNextQuestion ().toString ());
+		} else 
+		{
+			if(this.compareAnswer(this.message,this.getNextQuestion().getAnswer().ToString()))
+			{
+				this.message = "Respuesta correcta";
+				questionsList.RemoveAt(0);
+			}
+			else
+			{
+				this.message = "Respuesta incorrecta, vuelve a intentarlo";
+			}
 		}
 		if (this.message != "")
 		{
@@ -66,8 +94,8 @@ public class ChatBoxFunctions : MonoBehaviour
 				clone = (GameObject)Instantiate (FutureParentPanelPrefab); // new Object 
 
 			}
-			this.futureTime.text = System.DateTime.UtcNow.ToString ("HH:mm");
-			this.userTime.text = System.DateTime.UtcNow.ToString ("HH:mm");
+			this.futureTime.text = System.DateTime.UtcNow.ToLocalTime ().ToString("HH:mm");
+			this.userTime.text = System.DateTime.UtcNow.ToLocalTime ().ToString("HH:mm");
 			clone.transform.SetParent (messageParentPanel); // set new object to parent object
 			clone.transform.SetSiblingIndex (messageParentPanel.childCount - 2);
 			clone.GetComponent<MessageFunctions> ().ShowMessage (this.message); // set message to new object to show in GUI
@@ -76,7 +104,6 @@ public class ChatBoxFunctions : MonoBehaviour
 			{
 				if (isUserMessage)
 				{
-					//float contentPanelWidth = messageParentPanel.rect.width;
 					float contentPanelHeight = messageParentPanel.rect.height;
 					float clonePanelHeight = clone.transform.Find ("MessagePanel").GetComponent<RectTransform> ().rect.height;
 
@@ -95,8 +122,6 @@ public class ChatBoxFunctions : MonoBehaviour
 					Debug.Log (clonePanelHeight);
 					float contentPanelHeight = messageParentPanel.rect.height;
 					Debug.Log (contentPanelHeight);
-
-
 				}
 				this.isEmptyList = false;
 			}
@@ -108,10 +133,8 @@ public class ChatBoxFunctions : MonoBehaviour
 					float contentPanelHeight = messageParentPanel.rect.height;
 					float clonePanelHeight = clone.transform.Find ("MessagePanel").GetComponent<RectTransform> ().rect.height;
 					messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (5000, 400); //example of how to set height of parent (content of scroll view);
-					//float buffer = -60;
 
 					clone.transform.localPosition = new Vector3 (140, vector.y + -25, 0);
-
 					clone.transform.localScale = new Vector3 (0.6899125F, 0.2108072F, 0.6640406F);
 					this.isUserMessage = false;
 				}
@@ -121,7 +144,6 @@ public class ChatBoxFunctions : MonoBehaviour
 					float clonePanelHeight = clone.transform.Find ("MessagePanel").GetComponent<RectTransform> ().rect.height;
 					Debug.Log (clonePanelHeight);
 					messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (5000, 400); //example of how to set height of parent (content of scroll view);
-					//float buffer = -60;
 
 					clone.transform.localPosition = new Vector3 (98, vector.y + -25, 0);
 					clone.transform.localScale = new Vector3 (0.6899125F, 0.2108072F, 0.6640406F);
