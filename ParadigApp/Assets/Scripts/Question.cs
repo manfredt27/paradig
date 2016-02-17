@@ -9,50 +9,26 @@ namespace AssemblyCSharp
 		private string[] options;
 		private int answer;
 
-		public Question (string pQuestion, string[] pOptions, int pAnswer)
+		public Question (string question, string[] options, int answer)
 		{
-			this.question = pQuestion;
-			this.options = pOptions;
-			this.answer = pAnswer;
+			this.question = question;
+			this.options = options;
+			this.answer = answer;
 		}
 
-		public string getQuestion()
+		override public string ToString()
 		{
-			return this.question;
-		}
-
-		public void setQuestion(string pQuestion)
-		{
-			this.question = pQuestion;
-		}
-
-		public string[] getOptions()
-		{
-			return this.options;
-		}
-
-		public void setOptions(string[] pOptions)
-		{
-			this.options = pOptions;
-		}
-
-		public int getAnswer()
-		{
-			return this.answer;
-		}
-
-		public void setAnswer(int pAnswer)
-		{
-			this.answer = pAnswer;
-		}
-
-		public string toString(){
 			string result = this.question;
 			foreach (string option in options) 
 			{
 				result += "\n"+option;
 			}
 			return result;
+		}
+
+		public bool CompareAnswer(string userAnswer)
+		{
+			return this.answer.ToString() == userAnswer;
 		}
 	}
 }
