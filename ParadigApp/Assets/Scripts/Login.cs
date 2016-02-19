@@ -3,33 +3,9 @@ using System.Collections;
 
 public class Login : MonoBehaviour 
 {
+	public string userName { get; set; }
+	public string password { get; set; }
 
-
-	string userName;
-	string password;
-
-	public void setUserName(string pUserName)
-	{
-		this.userName = pUserName; 
-	}
-
-	public void getUserName()
-	{
-		Debug.Log (this.userName);
-		//return this.userName;
-	}
-
-	public void setPassword(string pPassword)
-	{
-		this.password = pPassword; 
-	}
-
-	public string getPassword()
-	{
-		Debug.Log (this.password);
-		return this.password;
-	}
-		
 	public void validateUser()
 	{
 		// here make a call to web service and verify if user is valid

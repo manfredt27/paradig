@@ -4,28 +4,32 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class ChatBoxFunctions : MonoBehaviour
-{
-
-	//WebService webService;
-	string message = "";
+{ 
 	[SerializeField] RectTransform messageParentPanel; // scroll
 	[SerializeField] ScrollRect scrollRect;
-
 	[SerializeField] GameObject UserParentPanelPrefab; // user prefab
 	[SerializeField] GameObject FutureParentPanelPrefab; // future prefab
-
 	[SerializeField] Text futureTime; // future time
 	[SerializeField] Text userTime; // user time
 
-	List<GameObject> messageList = new List<GameObject>();
-	bool isUserMessage = false;
-	float lastHeight = 0;
+	private string message = string.Empty;
+	private List<GameObject> messageList = new List<GameObject>();
+	private bool isUserMessage = false;
+	private float lastHeight = 0;
+	private List<AssemblyCSharp.Question> questionsList = new List<AssemblyCSharp.Question>();
+	private AssemblyCSharp.Metrics metrics = new AssemblyCSharp.Metrics();
+	private int rightAnswers = 0;
 
+<<<<<<< Updated upstream
 	List<AssemblyCSharp.Question> questionsList = new List<AssemblyCSharp.Question>();
 
 	void Start()
+=======
+	public void Start()
+>>>>>>> Stashed changes
 	{
 		messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 100);
+		this.metrics.rightAnswer = true;
 		// here we can add questions
 		// question #1
 		AssemblyCSharp.Question question = new AssemblyCSharp.Question("¿En qué año está:", new string[] {"1. 2012", "2. 2031", "3. 3016", "4. 2016"},3);
@@ -50,12 +54,12 @@ public class ChatBoxFunctions : MonoBehaviour
 				"4. El gobierno"
 			},3);
 		questionsList.Add (question);
-		this.CreateMessage (this.GetNextQuestion().ToString());
+		this.CreateMessage (this.GetNextQuestion().ToString()); // to show the first question
 	}
 
 	private void ScrollToBottom()
 	{
-		scrollRect.normalizedPosition = new Vector2 (0, 0);
+		scrollRect.normalizedPosition = new Vector2 (0, 0); // 0,0 means bottom
 	}
 
 	public void SetMessage (string messsage)
@@ -66,26 +70,45 @@ public class ChatBoxFunctions : MonoBehaviour
 	private AssemblyCSharp.Question GetNextQuestion(){
 		if (this.questionsList.Count > 0)
 		{
-			AssemblyCSharp.Question question = this.questionsList [0];
-			return question;
+			this.metrics.StartTimer ();
+			return this.questionsList [0];
 		}
+		Debug.Log ("cantidad de respuestas correctas " + this.rightAnswers.ToString());
 		return new AssemblyCSharp.Question("No hay más preguntas que mostrar", new string[] {""},0);;
+	}
+
+	private void IncreaseRightAnswer()
+	{
+		if (this.metrics.rightAnswer)
+			this.rightAnswers++;
 	}
 
 	public void ShowMessage()
 	{
-		if (this.message != "")
+		if (this.message != string.Empty)
 		{
 			this.CreateMessage (this.message);
 			if (this.GetNextQuestion ().CompareAnswer (this.message))
 			{
+<<<<<<< Updated upstream
+=======
+				this.metrics.StopTimer ();
+				Debug.Log ("timer despues de respuesta correcta" + (this.metrics.totalTime).ToString ());
+				this.metrics.totalTime = 0; // clear timer
+				Debug.Log ("la respuesta estuvo " + this.metrics.rightAnswer.ToString ());
+				IncreaseRightAnswer ();
+				this.metrics.rightAnswer = true;
+
+>>>>>>> Stashed changes
 				this.isUserMessage = false;
 				this.CreateMessage ("Respuesta correcta");
-				questionsList.RemoveAt (0);
+				questionsList.RemoveAt (0);// delete question of list
 				this.isUserMessage = false;
 				this.CreateMessage (this.GetNextQuestion().ToString());
 			} else
 			{
+				this.metrics.rightAnswer = false;
+				Debug.Log ("timer en respuesta incorrecta" + this.metrics.totalTime.ToString ());
 				this.isUserMessage = false;
 				this.CreateMessage ("Respuesta incorrecta, vuelve a intentarlo");
 			}
@@ -125,16 +148,20 @@ public class ChatBoxFunctions : MonoBehaviour
 		if (messageList.Count > 0)
 		{
 			this.lastHeight = messageList [messageList.Count - 1].transform.FindChild ("MessagePanel").transform.GetComponent<RectTransform>().rect.height / 8;
+<<<<<<< Updated upstream
 			Debug.Log (lastHeight);
 			Debug.Log (messageList [messageList.Count - 1].transform.localPosition.y);
 			return messageList [messageList.Count - 1].transform.localPosition.y; // Maybe here we have to make some changes, because some message are displayed in bad position
+=======
+			return messageList [messageList.Count - 1].transform.localPosition.y;
+>>>>>>> Stashed changes
 		}
 		return -10; // static position to show the first future message
 	}
 
 	private void DrawClone(bool isUserMessage, GameObject clone, float x, float y)
 	{
-		messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, messageParentPanel.GetComponent<RectTransform> ().sizeDelta.y + this.lastHeight + 20); //example of how to set height of parent (content of scroll view);
+		messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, messageParentPanel.GetComponent<RectTransform> ().sizeDelta.y + this.lastHeight + 20);
 		clone.transform.localPosition = new Vector3 (x, y - this.lastHeight, 0);
 		clone.transform.localScale = new Vector3 (0.6899125F, 0.2108072F, 0.6640406F);
 		this.isUserMessage = !isUserMessage;

@@ -6,8 +6,8 @@ public class MessageFunctions : MonoBehaviour
 {
 	[SerializeField] GameObject PanelPrefab;
 
-	public void ShowMessage(string pMessage)
+	public void ShowMessage(string message)
 	{
-		PanelPrefab.transform.GetChild (0).GetComponent<Text> ().text = pMessage;
+		PanelPrefab.transform.GetChild (0).GetComponent<Text> ().text = message;
 	}
 }
