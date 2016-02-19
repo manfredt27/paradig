@@ -53,15 +53,6 @@ public class ChatBoxFunctions : MonoBehaviour
 		this.CreateMessage (this.GetNextQuestion().ToString()); // to show the first question
 	}
 
-	void Update()
-	{
-		if (Input.GetKeyDown ("return"))
-		{
-			ShowMessage ();
-			GameObject.Find ("InputChat").GetComponent<Text> ().text = string.Empty;
-		}
-	}
-
 	private void ScrollToBottom()
 	{
 		scrollRect.normalizedPosition = new Vector2 (0, 0); // 0,0 means bottom
