@@ -20,13 +20,7 @@ public class ChatBoxFunctions : MonoBehaviour
 	private AssemblyCSharp.Metrics metrics = new AssemblyCSharp.Metrics();
 	private int rightAnswers = 0;
 
-<<<<<<< Updated upstream
-	List<AssemblyCSharp.Question> questionsList = new List<AssemblyCSharp.Question>();
-
 	void Start()
-=======
-	public void Start()
->>>>>>> Stashed changes
 	{
 		messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 100);
 		this.metrics.rightAnswer = true;
@@ -90,8 +84,6 @@ public class ChatBoxFunctions : MonoBehaviour
 			this.CreateMessage (this.message);
 			if (this.GetNextQuestion ().CompareAnswer (this.message))
 			{
-<<<<<<< Updated upstream
-=======
 				this.metrics.StopTimer ();
 				Debug.Log ("timer despues de respuesta correcta" + (this.metrics.totalTime).ToString ());
 				this.metrics.totalTime = 0; // clear timer
@@ -99,7 +91,6 @@ public class ChatBoxFunctions : MonoBehaviour
 				IncreaseRightAnswer ();
 				this.metrics.rightAnswer = true;
 
->>>>>>> Stashed changes
 				this.isUserMessage = false;
 				this.CreateMessage ("Respuesta correcta");
 				questionsList.RemoveAt (0);// delete question of list
@@ -148,13 +139,7 @@ public class ChatBoxFunctions : MonoBehaviour
 		if (messageList.Count > 0)
 		{
 			this.lastHeight = messageList [messageList.Count - 1].transform.FindChild ("MessagePanel").transform.GetComponent<RectTransform>().rect.height / 8;
-<<<<<<< Updated upstream
-			Debug.Log (lastHeight);
-			Debug.Log (messageList [messageList.Count - 1].transform.localPosition.y);
-			return messageList [messageList.Count - 1].transform.localPosition.y; // Maybe here we have to make some changes, because some message are displayed in bad position
-=======
 			return messageList [messageList.Count - 1].transform.localPosition.y;
->>>>>>> Stashed changes
 		}
 		return -10; // static position to show the first future message
 	}

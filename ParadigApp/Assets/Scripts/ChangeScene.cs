@@ -19,7 +19,7 @@ public class ChangeScene : MonoBehaviour
 		SceneManager.LoadScene (lastScene);
 	}
 
-	public void Update()
+	void Update()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) 
 		{
