@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class WebService : MonoBehaviour 
 {
-	public string message;
-
 	// 	THIS CODE IS AN EXAMPLE OF HOW TO CONSUME WS (DO NOT ERASE by the moment)
 	//		// Set url of web service (for GET example)
 	//		string urlGET = "http://jsonplaceholder.typicode.com/posts/1"; // url what I found in google (json web service online for test)
@@ -39,26 +37,21 @@ public class WebService : MonoBehaviour
 		// check for errors
 		if (www.error == null) {
 			// Here we can do whatever we want :)
-			Debug.Log ("WWW OK: " + www.text);
+			Debug.Log ("WebService Response: " + www.text);
 		} else {
 			Debug.Log ("Error: " + www.error);
 		}
 	}
-		
-	public void SetMessage (string messsage)
-	{
-		this.message = messsage;
-	}
 
-	public void SendMessage()
+	public void Send(string userName, string rightAnswers, string time)
 	{
 		// Set url of web service
-		string urlPOST = "http://jsonplaceholder.typicode.com/posts"; // mejorar
+		string urlPOST = "http://jsonplaceholder.typicode.com/posts";
 		// create a form and set data to send
 		WWWForm formPOST = new WWWForm ();
-		formPOST.AddField ("title", "testPost");
-		formPOST.AddField ("body", this.message);
-		formPOST.AddField ("userId", 1);
+		formPOST.AddField ("totalTime", time);
+		formPOST.AddField ("rightAnswers", rightAnswers);
+		formPOST.AddField ("userName", userName);
 		WWW wwwPOST = new WWW (urlPOST, formPOST);
 
 		// Start coroutine to make a post to web service

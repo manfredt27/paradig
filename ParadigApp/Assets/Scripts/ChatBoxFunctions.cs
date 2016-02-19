@@ -18,12 +18,14 @@ public class ChatBoxFunctions : MonoBehaviour
 	private float lastHeight = 0;
 	private List<AssemblyCSharp.Question> questionsList = new List<AssemblyCSharp.Question>();
 	private AssemblyCSharp.Metrics metrics = new AssemblyCSharp.Metrics();
+	private WebService webService;
 	private int rightAnswers = 0;
 
 	void Start()
 	{
 		messageParentPanel.GetComponent<RectTransform> ().sizeDelta = new Vector2 (400, 100);
 		this.metrics.rightAnswer = true;
+		webService = gameObject.AddComponent (typeof(WebService)) as WebService;
 		// here we can add questions
 		// question #1
 		AssemblyCSharp.Question question = new AssemblyCSharp.Question("¿En qué año está:", new string[] {"1. 2012", "2. 2031", "3. 3016", "4. 2016"},3);
@@ -51,6 +53,15 @@ public class ChatBoxFunctions : MonoBehaviour
 		this.CreateMessage (this.GetNextQuestion().ToString()); // to show the first question
 	}
 
+	void Update()
+	{
+		if (Input.GetKeyDown ("return"))
+		{
+			ShowMessage ();
+			GameObject.Find ("InputChat").GetComponent<Text> ().text = string.Empty;
+		}
+	}
+
 	private void ScrollToBottom()
 	{
 		scrollRect.normalizedPosition = new Vector2 (0, 0); // 0,0 means bottom
@@ -67,8 +78,9 @@ public class ChatBoxFunctions : MonoBehaviour
 			this.metrics.StartTimer ();
 			return this.questionsList [0];
 		}
-		Debug.Log ("cantidad de respuestas correctas " + this.rightAnswers.ToString());
-		return new AssemblyCSharp.Question("No hay más preguntas que mostrar", new string[] {""},0);;
+		Debug.Log ("TERMINA cantidad de respuestas correctas " + this.rightAnswers.ToString());
+		this.webService.Send ("userNameSample", this.rightAnswers.ToString(), this.metrics.totalTime.ToString()); // send info to webservice
+		return new AssemblyCSharp.Question("No hay más preguntas que mostrar", new string[] {string.Empty},0);;
 	}
 
 	private void IncreaseRightAnswer()
@@ -86,7 +98,7 @@ public class ChatBoxFunctions : MonoBehaviour
 			{
 				this.metrics.StopTimer ();
 				Debug.Log ("timer despues de respuesta correcta" + (this.metrics.totalTime).ToString ());
-				this.metrics.totalTime = 0; // clear timer
+				//this.metrics.totalTime = 0; // clear timer
 				Debug.Log ("la respuesta estuvo " + this.metrics.rightAnswer.ToString ());
 				IncreaseRightAnswer ();
 				this.metrics.rightAnswer = true;
