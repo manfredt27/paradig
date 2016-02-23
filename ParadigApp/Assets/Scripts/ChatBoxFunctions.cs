@@ -9,8 +9,10 @@ public class ChatBoxFunctions : MonoBehaviour
 	[SerializeField] ScrollRect scrollRect;
 	[SerializeField] GameObject UserParentPanelPrefab; // user prefab
 	[SerializeField] GameObject FutureParentPanelPrefab; // future prefab
+	[SerializeField] GameObject BadgeParentPanelPrefab;
 	[SerializeField] Text futureTime; // future time
 	[SerializeField] Text userTime; // user time
+
 
 	private string message = string.Empty;
 	private List<GameObject> messageList = new List<GameObject>();
@@ -18,6 +20,7 @@ public class ChatBoxFunctions : MonoBehaviour
 	private float lastHeight = 0;
 	private List<AssemblyCSharp.Question> questionsList = new List<AssemblyCSharp.Question>();
 	private AssemblyCSharp.Metrics metrics = new AssemblyCSharp.Metrics();
+	private AssemblyCSharp.ChangeScene changeScene = new AssemblyCSharp.ChangeScene ();
 	private WebService webService;
 	private int rightAnswers = 0;
 
@@ -70,7 +73,17 @@ public class ChatBoxFunctions : MonoBehaviour
 			return this.questionsList [0];
 		}
 		Debug.Log ("TERMINA cantidad de respuestas correctas " + this.rightAnswers.ToString());
+		if (this.rightAnswers == 3) {
+			GameObject clone;
+			clone = (GameObject)Instantiate (BadgeParentPanelPrefab); // new Object 
+			clone.transform.SetParent (messageParentPanel); // set new object to parent object
+			clone.transform.SetSiblingIndex (messageParentPanel.childCount - 2);
+			DrawClone (this.isUserMessage, clone, 200, this.GetLastYPosition() + -45);
+			clone.transform.localScale = new Vector3 (1F, 1F, 1F);
+			this.ScrollToBottom ();
+		}
 		this.webService.Send ("userNameSample", this.rightAnswers.ToString(), this.metrics.totalTime.ToString()); // send info to webservice
+		//this.changeScene.ChangeToScene("Congratulations");
 		return new AssemblyCSharp.Question("No hay más preguntas que mostrar", new string[] {string.Empty},0);;
 	}
 
