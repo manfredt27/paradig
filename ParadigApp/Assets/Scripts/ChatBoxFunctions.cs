@@ -78,7 +78,7 @@ public class ChatBoxFunctions : MonoBehaviour
 			clone = (GameObject)Instantiate (BadgeParentPanelPrefab); // new Object 
 			clone.transform.SetParent (messageParentPanel); // set new object to parent object
 			clone.transform.SetSiblingIndex (messageParentPanel.childCount - 2);
-			DrawClone (this.isUserMessage, clone, 200, this.GetLastYPosition() + -45);
+			DrawClone (this.isUserMessage=true, clone, 200, this.GetLastYPosition() + -60);
 			clone.transform.localScale = new Vector3 (1F, 1F, 1F);
 			this.ScrollToBottom ();
 		}
