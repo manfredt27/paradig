@@ -4,41 +4,16 @@ using UnityEngine.Events;
 using System.Collections;
 
 
-public class Register : MonoBehaviour {
-
+public class Register : MonoBehaviour 
+{
 	public Dropdown ddlGender;
-	string userName;
-	string password;
-	string age;
-	string gender;
+	public string userName { get; set; }
+	public string password { get; set; }
+	public string age { get; set; }
+	public string gender { get; set; }
 
-	public void SetUserName(string pUserName){
-		this.userName = pUserName; 
-	}
-
-	public void GetUserName(){
-		Debug.Log (this.userName);
-	}
-
-	public void SetPassword(string pPassword){
-		this.password = pPassword; 
-	}
-
-	public string GetPassword(){
-		Debug.Log (this.password);
-		return this.password;
-	}
-
-	public void SetAge(string pAge){
-		this.age = pAge; 
-	}
-
-	public string GetAge(){
-		Debug.Log (this.age);
-		return this.age;
-	}
-
-	public void ValidateUser(){
+	public void ValidateUser()
+	{
 		Debug.Log (this.userName);
 		Debug.Log (this.password);
 		Debug.Log (this.age);

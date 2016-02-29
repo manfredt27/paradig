@@ -2,11 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class MessageFunctions : MonoBehaviour {
+public class MessageFunctions : MonoBehaviour 
+{
+	[SerializeField] GameObject PanelPrefab;
 
-	[SerializeField] Text text;
-
-	public void ShowMessage(string pMessage){
-		text.text = pMessage;
+	public void ShowMessage(string message)
+	{
+		PanelPrefab.transform.GetChild (0).GetComponent<Text> ().text = message;
 	}
 }
